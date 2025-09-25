@@ -90,13 +90,11 @@ static int gpufreq_frequency_table_get(unsigned int gpu, struct gpufreq_frequenc
     if(unlikely(ret != 0))
     {
         /* failed in getting table, make a default one */
-        GPUFREQ_SET_FREQ_TABLE(table_freqs, 0, HZ_TO_KHZ(104000000));
-        GPUFREQ_SET_FREQ_TABLE(table_freqs, 1, HZ_TO_KHZ(156000000));
-        GPUFREQ_SET_FREQ_TABLE(table_freqs, 2, HZ_TO_KHZ(208000000));
-        GPUFREQ_SET_FREQ_TABLE(table_freqs, 3, HZ_TO_KHZ(312000000));
-        GPUFREQ_SET_FREQ_TABLE(table_freqs, 4, HZ_TO_KHZ(416000000));
-        GPUFREQ_SET_FREQ_TABLE(table_freqs, 5, HZ_TO_KHZ(624000000));
-        GPUFREQ_SET_FREQ_TABLE(table_freqs, 6, GPUFREQ_TABLE_END);
+        GPUFREQ_SET_FREQ_TABLE(table_freqs, 0, HZ_TO_KHZ(156000000));
+        GPUFREQ_SET_FREQ_TABLE(table_freqs, 1, HZ_TO_KHZ(312000000));
+        GPUFREQ_SET_FREQ_TABLE(table_freqs, 2, HZ_TO_KHZ(416000000));
+        GPUFREQ_SET_FREQ_TABLE(table_freqs, 3, HZ_TO_KHZ(624000000));
+        GPUFREQ_SET_FREQ_TABLE(table_freqs, 4, GPUFREQ_TABLE_END);
         goto out;
     }
 

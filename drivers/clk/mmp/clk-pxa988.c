@@ -1492,7 +1492,6 @@ static const char *gc_parents_gate[] = {
 };
 
 static struct periph_clk_tbl gc_aclk_tbl_common[] = {
-	{.clk_rate = 52000000, .parent_name = "pll1_416m"},
 	{.clk_rate = 78000000, .parent_name = "pll1_624"},
 	{.clk_rate = 104000000, .parent_name = "pll1_416m"},
 	{.clk_rate = 156000000, .parent_name = "pll1_624"},
@@ -1502,7 +1501,6 @@ static struct periph_clk_tbl gc_aclk_tbl_common[] = {
 };
 
 static struct periph_clk_tbl gc_aclk_tbl_gate[] = {
-	{.clk_rate = 52000000, .parent_name = "pll1_416_gate"},
 	{.clk_rate = 78000000, .parent_name = "pll1_624_gate"},
 	{.clk_rate = 104000000, .parent_name = "pll1_416_gate"},
 	{.clk_rate = 156000000, .parent_name = "pll1_624_gate"},
@@ -1538,19 +1536,9 @@ static struct peri_params gc_aclk_params_gate = {
 
 static struct periph_clk_tbl gc_fclk_tbl_common[] = {
 	{
-		.clk_rate = 104000000,
-		.parent_name = "pll1_416m",
-		.comclk_rate = 104000000,
-	},
-	{
 		.clk_rate = 156000000,
 		.parent_name = "pll1_624",
 		.comclk_rate = 156000000,
-	},
-	{
-		.clk_rate = 208000000,
-		.parent_name = "pll1_416m",
-		.comclk_rate = 208000000,
 	},
 	{
 		.clk_rate = 312000000,
@@ -1571,19 +1559,9 @@ static struct periph_clk_tbl gc_fclk_tbl_common[] = {
 
 static struct periph_clk_tbl gc_fclk_tbl_gate[] = {
 	{
-		.clk_rate = 104000000,
-		.parent_name = "pll1_416_gate",
-		.comclk_rate = 104000000,
-	},
-	{
 		.clk_rate = 156000000,
 		.parent_name = "pll1_624_gate",
 		.comclk_rate = 156000000,
-	},
-	{
-		.clk_rate = 208000000,
-		.parent_name = "pll1_416_gate",
-		.comclk_rate = 208000000,
 	},
 	{
 		.clk_rate = 312000000,
@@ -1632,7 +1610,6 @@ static struct peri_params gc_fclk_params_gate = {
 };
 
 static struct periph_clk_tbl gc2d_aclk_tbl_common[] = {
-	{.clk_rate = 52000000, .parent_name = "pll1_416m"},
 	{.clk_rate = 78000000, .parent_name = "pll1_624"},
 	{.clk_rate = 104000000, .parent_name = "pll1_416m"},
 	{.clk_rate = 156000000, .parent_name = "pll1_624"},
@@ -1642,7 +1619,6 @@ static struct periph_clk_tbl gc2d_aclk_tbl_common[] = {
 };
 
 static struct periph_clk_tbl gc2d_aclk_tbl_gate[] = {
-	{.clk_rate = 52000000, .parent_name = "pll1_416_gate"},
 	{.clk_rate = 78000000, .parent_name = "pll1_624_gate"},
 	{.clk_rate = 104000000, .parent_name = "pll1_416_gate"},
 	{.clk_rate = 156000000, .parent_name = "pll1_624_gate"},
@@ -1667,19 +1643,9 @@ static struct peri_params gc2d_aclk_params_gate = {
 
 static struct periph_clk_tbl gc2d_fclk_tbl_common[] = {
 	{
-		.clk_rate = 104000000,
-		.parent_name = "pll1_416m",
-		.comclk_rate = 104000000,
-	},
-	{
 		.clk_rate = 156000000,
 		.parent_name = "pll1_624",
 		.comclk_rate = 156000000,
-	},
-	{
-		.clk_rate = 208000000,
-		.parent_name = "pll1_416m",
-		.comclk_rate = 208000000,
 	},
 	{
 		.clk_rate = 312000000,
@@ -1695,19 +1661,9 @@ static struct periph_clk_tbl gc2d_fclk_tbl_common[] = {
 
 static struct periph_clk_tbl gc2d_fclk_tbl_gate[] = {
 	{
-		.clk_rate = 104000000,
-		.parent_name = "pll1_416_gate",
-		.comclk_rate = 104000000,
-	},
-	{
 		.clk_rate = 156000000,
 		.parent_name = "pll1_624_gate",
 		.comclk_rate = 156000000,
-	},
-	{
-		.clk_rate = 208000000,
-		.parent_name = "pll1_416_gate",
-		.comclk_rate = 208000000,
 	},
 	{
 		.clk_rate = 312000000,
