@@ -33,6 +33,7 @@
 #include <linux/rbtree.h>
 #include <linux/sched.h>
 #include <linux/seq_file.h>
+#include <linux/string.h>
 #include <linux/uaccess.h>
 #include <linux/vmalloc.h>
 #include <linux/slab.h>
@@ -3739,11 +3740,56 @@ static const struct file_operations binder_fops = {
 	.release = binder_release,
 };
 
-static struct miscdevice binder_miscdev = {
-	.minor = MISC_DYNAMIC_MINOR,
-	.name = "binder",
-	.fops = &binder_fops
-};
+#define BINDER_MAX_DEVICES 3
+static char *binder_devices_param = "binder,hwbinder,vndbinder";
+module_param_named(devices, binder_devices_param, charp, S_IRUGO);
+
+static struct miscdevice binder_miscdevs[BINDER_MAX_DEVICES];
+static int binder_num_miscdevs;
+
+static int binder_setup_devices(void)
+{
+	int ret = 0;
+	char *name, *devlist, *free_devlist;
+
+	free_devlist = devlist = kstrdup(binder_devices_param, GFP_KERNEL);
+	if (!devlist)
+		return -ENOMEM;
+
+	while ((name = strsep(&devlist, ","))) {
+		struct miscdevice *miscdev;
+
+		if (binder_num_miscdevs == BINDER_MAX_DEVICES) {
+			pr_err("Too many binder devices configured\n");
+			ret = -EINVAL;
+			goto err;
+		}
+
+		if (!name[0])
+			continue;
+
+		miscdev = &binder_miscdevs[binder_num_miscdevs++];
+		miscdev->minor = MISC_DYNAMIC_MINOR;
+		miscdev->name = name;
+		miscdev->fops = &binder_fops;
+
+		ret = misc_register(miscdev);
+		if (ret) {
+			pr_err("Failed to register binder device %s (%d)\n",
+			       name, ret);
+			goto err;
+		}
+	}
+
+	kfree(free_devlist);
+	return 0;
+
+err:
+	while (binder_num_miscdevs--)
+		misc_deregister(&binder_miscdevs[binder_num_miscdevs]);
+	kfree(free_devlist);
+	return ret;
+}
 
 BINDER_DEBUG_ENTRY(state);
 BINDER_DEBUG_ENTRY(stats);
@@ -3762,7 +3808,7 @@ static int __init binder_init(void)
 	if (binder_debugfs_dir_entry_root)
 		binder_debugfs_dir_entry_proc = debugfs_create_dir("proc",
 						 binder_debugfs_dir_entry_root);
-	ret = misc_register(&binder_miscdev);
+	ret = binder_setup_devices();
 	if (binder_debugfs_dir_entry_root) {
 		debugfs_create_file("state",
 				    S_IRUGO,
